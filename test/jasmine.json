@@ -1,0 +1,11 @@
+{
+  "spec_dir": "test",
+  "spec_files": [
+    "**/*[tT]est.js"
+  ],
+  "helpers": [
+    "**/*[hH]elper.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false
+}
