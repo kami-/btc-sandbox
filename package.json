@@ -4,15 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine --config=test/jasmine.json"
+    "test": "tsc && jasmine --config=test/jasmine.json"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "bigi": "1.4.2",
-    "bs58": "4.0.1"
+    "bs58": "4.0.1",
+    "typescript": "^2.6.2"
   },
   "devDependencies": {
+    "@types/bigi": "^1.4.0",
+    "@types/jasmine": "^2.8.2",
+    "@types/node": "^8.0.54",
     "jasmine": "^2.8.0",
     "jasmine-spec-reporter": "^4.2.1"
   }

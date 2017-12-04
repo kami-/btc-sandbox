@@ -1,5 +1,5 @@
-const bs58 = require("bs58");
-const crypto = require("./crypto");
+import * as bs58 from "bs58";
+import * as Crypto from "./Crypto";
 
 const BASE_58_CHECK_CHECKSUM_BYTE_SIZE = 4
 const BASE_58_CHECK_VERSION = {
@@ -7,18 +7,18 @@ const BASE_58_CHECK_VERSION = {
     PRIVATE_KEY_WIF: Buffer.from([0x80])
 };
 
-function checkEncode(version, payload) {
-    const versionAndPayload = crypto.sha256(Buffer.concat([version, payload]));
-    const checksum = crypto.sha256(versionAndPayload);
+export function checkEncode(version: Buffer, payload: Buffer): string {
+    const versionAndPayload = Crypto.sha256(Buffer.concat([version, payload]));
+    const checksum = Crypto.sha256(versionAndPayload);
     const result = Buffer.concat([version, payload, checksum.slice(0, BASE_58_CHECK_CHECKSUM_BYTE_SIZE)]);
     return bs58.encode(result);
 }
 
-function checkEncodeAddress(address) {
+export function checkEncodeAddress(address: Buffer): string {
     return checkEncode(BASE_58_CHECK_VERSION.ADDRESS, address);
 }
 
-function checkDecodeAddress(encodedAddress) {
+export function checkDecodeAddress(encodedAddress: string) {
     const decodedAddress = bs58.decode(encodedAddress);
     const checksumStart = decodedAddress.length - BASE_58_CHECK_CHECKSUM_BYTE_SIZE - 1;
     return {
@@ -28,13 +28,6 @@ function checkDecodeAddress(encodedAddress) {
     };
 }
 
-function checkEncodeWifPrivateKey(privateKey) {
+export function checkEncodeWifPrivateKey(privateKey: Buffer): string {
     return checkEncode(BASE_58_CHECK_VERSION.PRIVATE_KEY_WIF, privateKey);
-}
-
-module.exports = {
-    checkEncode: checkEncode,
-    checkEncodeAddress: checkEncodeAddress,
-    checkDecodeAddress: checkDecodeAddress,
-    checkEncodeWifPrivateKey: checkEncodeWifPrivateKey
 }

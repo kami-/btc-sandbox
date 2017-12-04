@@ -1,6 +1,6 @@
-const bigi = require("bigi");
-const address = require("../src/address");
-const base58 = require("../src/base58");
+import * as bigi from "bigi";
+import * as Address from "../src/Address";
+import * as Base58 from "../src/Base58";
 
 describe("Address", () => {
     const PRIVATE_KEY_HEX = "3aba4162c7251c891207b747840551a71939b0de081f85c4e44cf7c13e41daa6";
@@ -9,7 +9,7 @@ describe("Address", () => {
 
     describe("generatePublicKey", () => {
         it("should generate the correct public key for given private key", () => {
-            const publicKey = address.generatePublicKey(bigi.fromHex(PRIVATE_KEY_HEX).toBuffer());
+            const publicKey = Address.generatePublicKey(bigi.fromHex(PRIVATE_KEY_HEX).toBuffer(0));
 
             expect(bigi.fromBuffer(publicKey).toHex()).toBe(PUBLIC_KEY_HEX);
         });
@@ -17,8 +17,8 @@ describe("Address", () => {
 
     describe("generateAddress", () => {
         it("should generate the correct address for given public key", () => {
-            const addressBuffer = address.generateAddress(bigi.fromHex(PUBLIC_KEY_HEX).toBuffer());
-            const addressBase58Check = base58.checkEncodeAddress(addressBuffer);
+            const addressBuffer = Address.generateAddress(bigi.fromHex(PUBLIC_KEY_HEX).toBuffer(0));
+            const addressBase58Check = Base58.checkEncodeAddress(addressBuffer);
 
             expect(addressBase58Check).toBe(ADDRESS_BASE_58_CHECK);
         });
