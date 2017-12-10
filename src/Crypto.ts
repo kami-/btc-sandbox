@@ -21,3 +21,11 @@ export function generateSecp256k1PublicKey(privateKey: Buffer): Buffer {
     secp256k1.setPrivateKey(privateKey);
     return secp256k1.getPublicKey();
 }
+
+export function pbkdf2(secret: string, salt: string, iteration: number, keyLength: number, digest: string): Buffer {
+    return crypto.pbkdf2Sync(secret, salt, iteration, keyLength, digest);
+}
+
+export function randomBytes(size: number): Buffer {
+    return crypto.randomBytes(size);
+}

@@ -1,10 +1,5 @@
-import * as nodeCrypto from "crypto";
 import * as bigi from "bigi";
 import * as Crypto from "./Crypto";
-
-//const nodeCrypto = require("crypto");
-//const bigi = require("bigi");
-//const crypto = require("./crypto");
 
 const PRIVATE_KEY_MAX_BIT_SIZE = 256;
 
@@ -17,7 +12,7 @@ function isValidPrivateKey(privateKey): boolean {
 export function generatePrivateKey(): Buffer {
     let privateKey: bigi = bigi.ZERO;
     do {
-        privateKey = bigi.fromBuffer(nodeCrypto.randomBytes(PRIVATE_KEY_MAX_BIT_SIZE / 8));
+        privateKey = bigi.fromBuffer(Crypto.randomBytes(PRIVATE_KEY_MAX_BIT_SIZE / 8));
     } while (!isValidPrivateKey(privateKey))
     return privateKey.toBuffer(0);
 }
